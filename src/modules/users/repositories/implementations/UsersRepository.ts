@@ -46,7 +46,7 @@ class UsersRepository implements IUsersRepository {
 
   turnAdmin(receivedUser: User): User {
     const user = receivedUser;
-    user.admin = true; //check if working or if we have to change receivedUser.admin
+    user.admin = true; //check if working or if I have to change receivedUser.admin
     return user;
   }
 

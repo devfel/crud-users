@@ -6,8 +6,9 @@ class ListAllUsersController {
   constructor(private listAllUsersUseCase: ListAllUsersUseCase) {}
 
   handle(request: Request, response: Response): Response {
-    //const {user_id} = request.headers; //NEED TO VALIDATE USER_ID is ADMIN.
-    const allUsers = this.listAllUsersUseCase.execute();
+    const { user_id } = request.headers; //NEED TO VALIDATE USER_ID is ADMIN.
+
+    const allUsers = this.listAllUsersUseCase.execute({ user_id: String(user_id) });
 
     return response.json(allUsers);
   }
