@@ -8,8 +8,15 @@ interface IRequest {
 class ListAllUsersUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
-  execute({ user_id }: IRequest): User[] {
-    // Complete aqui
+  //NEED TO VALIDATE USER_ID is ADMIN.
+  //execute({ user_id }: IRequest): User[] {
+  //  const validateUserAdmin = user_id //check if user is admin, utilize get_user_by_id.
+  execute(): User[] {
+    const validateUserAdmin = true; //remove this line.
+
+    const users = this.usersRepository.list();
+
+    return users;
   }
 }
 
