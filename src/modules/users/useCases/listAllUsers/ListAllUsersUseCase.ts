@@ -12,6 +12,10 @@ class ListAllUsersUseCase {
     //Find user by ID and check if it is an admin
     const validateUserAdmin = this.usersRepository.findById(user_id).admin;
 
+    if (!validateUserAdmin) {
+      throw new Error("Invalid User or User not found!");
+    }
+
     if (validateUserAdmin) {
       const users = this.usersRepository.list();
       return users;

@@ -6,11 +6,15 @@ class ListAllUsersController {
   constructor(private listAllUsersUseCase: ListAllUsersUseCase) {}
 
   handle(request: Request, response: Response): Response {
-    const { user_id } = request.headers; //user_id is needed to valide if the user is admin.
+    try {
+      const { user_id } = request.headers; //user_id is needed to valide if the user is admin.
 
-    const allUsers = this.listAllUsersUseCase.execute({ user_id: String(user_id) });
+      const allUsers = this.listAllUsersUseCase.execute({ user_id: String(user_id) });
 
-    return response.json(allUsers);
+      return response.json(allUsers);
+    } catch (error) {
+      return response.status(400).json({ error: error.message });
+    }
   }
 }
 
