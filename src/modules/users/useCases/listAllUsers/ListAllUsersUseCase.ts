@@ -9,7 +9,7 @@ class ListAllUsersUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
   execute({ user_id }: IRequest): User[] {
-    //Check if user is admin
+    //Find user by ID and check if it is an admin
     const validateUserAdmin = this.usersRepository.findById(user_id).admin;
 
     if (validateUserAdmin) {
