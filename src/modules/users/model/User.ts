@@ -11,7 +11,7 @@ class User {
   constructor() {
     if (!this.id) {
       this.id = uuidV4();
-      this.admin = false; //Setted within the UsersRepository.
+      this.admin = false;
     }
   }
 }
