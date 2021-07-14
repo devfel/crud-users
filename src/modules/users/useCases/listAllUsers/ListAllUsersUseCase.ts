@@ -10,13 +10,17 @@ class ListAllUsersUseCase {
 
   execute({ user_id }: IRequest): User[] {
     //Find user by ID and check if it is an admin
-    const validateUserAdmin = this.usersRepository.findById(user_id).admin;
+    const validUser = this.usersRepository.findById(user_id);
 
-    if (!validateUserAdmin) {
+    if (!validUser) {
       throw new Error("Invalid User or User not found!");
     }
 
-    if (validateUserAdmin) {
+    if (validUser.admin === false) {
+      throw new Error("Unauthorized, user is not an admin!");
+    }
+
+    if (validUser) {
       const users = this.usersRepository.list();
       return users;
     }
