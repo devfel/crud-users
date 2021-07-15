@@ -2,9 +2,10 @@
   "openapi": "3.0.0",
   "info": {
     "title": "CRUD Users Documentation",
-    "description": "CRUD Users Documentation",
-    "version": "CRUD Users Documentation",
+    "description": "Backend API to create, read, update and delete Users.",
+    "version": "1.0.0",
     "contact": {
+      "name": "Devfel",
       "email": "devfel@gmail.com"
     }
   },
@@ -13,19 +14,25 @@
       "post": {
         "tags": ["Users"],
         "summary": "Register User",
-        "description": "Register User",
+        "description": "Route to create or register an User. Requires name and e-mail. User registered is by default not an admin.",
         "requestBody": {
+          "description": "Content required for create user",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": { "type": "string" },
-                  "email": { "type": "string" }
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
                 },
                 "example": {
-                  "name": "Jonh Doe",
-                  "email": "jonh@doe.com"
+                  "name": "Sample name",
+                  "email": "sample@email.com"
                 }
               }
             }
@@ -33,10 +40,296 @@
         },
         "responses": {
           "201": {
-            "description": "User Registered Successfully"
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "admin": false,
+                    "id": "1a97aa1b-b4f4-4270-bbe2-d061651522e3",
+                    "name": "Jonh",
+                    "email": "jonh@doe.com",
+                    "created_at": "2021-07-15T12:00:00.000Z",
+                    "updated_at": "2021-07-15T12:00:00.000Z"
+                  }
+                }
+              }
+            }
           },
           "400": {
-            "description": "Email Already in Use."
+            "description": "Unregistered user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "Email already in use."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "List All Users",
+        "description": "Route to list all users, only avaible if user requesting is an admin.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "user_id",
+            "description": "User id to search data",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": [
+                    {
+                      "admin": true,
+                      "id": "1a97aa1b-b4f4-4270-bbe2-d061651522e3",
+                      "name": "Jonh",
+                      "email": "jonh@doe.com",
+                      "created_at": "2021-07-15T12:00:00.000Z",
+                      "updated_at": "2021-07-15T12:00:00.000Z"
+                    },
+                    {
+                      "admin": false,
+                      "id": "51f51525-1dc6-40ee-8354-1cb476cdd2f2",
+                      "name": "Dev Fel",
+                      "email": "fel@test.com",
+                      "created_at": "2021-07-15T12:00:00.000Z",
+                      "updated_at": "2021-07-15T12:00:00.000Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not found or not an admin.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "Only admin users can list all users."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "User id to search data",
+            "required": true
+          }
+        ],
+        "tags": ["Users"],
+        "summary": "Get single user by ID",
+        "description": "Search and shows user profile by ID.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "admin": true,
+                    "id": "1a97aa1b-b4f4-4270-bbe2-d061651522e3",
+                    "name": "Jonh",
+                    "email": "jonh@doe.com",
+                    "created_at": "2021-07-15T12:00:00.000Z",
+                    "updated_at": "2021-07-15T12:00:00.000Z"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "User not found."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "User id to search data",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "tags": ["Users"],
+        "summary": "Patch User",
+        "description": "Change admin atribute from user to be true. Patch user to be an admin.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "admin": true,
+                    "id": "1a97aa1b-b4f4-4270-bbe2-d061651522e3",
+                    "name": "Jonh",
+                    "email": "jonh@doe.com",
+                    "created_at": "2021-07-15T12:00:00.000Z",
+                    "updated_at": "2021-07-15T12:00:00.000Z"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "User not found."
+                  }
+                }
+              }
+            }
           }
         }
       }
