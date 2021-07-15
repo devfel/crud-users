@@ -17,7 +17,7 @@
 <p align="center">
 
 This application implements the CRUD (Create, Read, Update) for users. Also, it is possible to make a user an administrator, listing users only if the user you are requesting it as an administrator. <br/><br/>
-This project was done using Javascript, Node, Express and it utilizes from the SOLID principles.</p>
+This project was done using Javascript, Node, Express and it utilizes from the SOLID principles. Include project documentation with swagger.</p>
 
 ---
 
@@ -42,6 +42,8 @@ With this application the client can access the following routes<br/>
 1. GET `/users/:user_id` → list a specific user. <br/>
 1. GET `/users` → list all users, need to be done by an admin. <br/>
 
+- EXTRA: Documentation Route - `/api-docs` → swagger documentation of the project. <br/>
+
 ---
 
 ## 🔁 Dependencies <a name = "dependencies"></a>
@@ -53,6 +55,7 @@ Some project library dependencies includes but are not limited to:
 - "uuid": "^8.3.2"
 - "jest": "^26.6.3",
 - "nodemon": "^2.0.7",
+- "swagger-ui-express": "^4.1.6",
 
 ---
 
@@ -89,6 +92,8 @@ With the dependencies installed run <b>yarn dev</b> to bring up the server. To e
 
 - Created based on a [RocketSeat](https://rocketseat.com.br/) challenge.
 - Full description in Brazilian Portuguese: [Trilha Node.js - Desafio 04](https://www.notion.so/Desafio-01-Introdu-o-ao-SOLID-3b9be286fac0482ca3b275473ddd2d72)
+
+- Additional challenge, swagger documentation in Brazilian Portuguese: [Trilha Node.js - Desafio 05](https://www.notion.so/Desafio-02-Documentando-com-Swagger-8ce869ea608743e292851bd951f3239f)
 
 ---
 
