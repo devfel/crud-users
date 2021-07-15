@@ -1,0 +1,45 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CRUD Users Documentation",
+    "description": "CRUD Users Documentation",
+    "version": "CRUD Users Documentation",
+    "contact": {
+      "email": "devfel@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Register User",
+        "description": "Register User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" }
+                },
+                "example": {
+                  "name": "Jonh Doe",
+                  "email": "jonh@doe.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User Registered Successfully"
+          },
+          "400": {
+            "description": "Email Already in Use."
+          }
+        }
+      }
+    }
+  }
+}
